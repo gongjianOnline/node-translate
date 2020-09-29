@@ -1,0 +1,16 @@
+{
+  "name": "fanyi",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev src/main.ts"
+  },
+  "author": "李承斌 <15031617367@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/md5": "^2.2.0",
+    "@types/node": "^14.11.2",
+    "commander": "^6.1.0",
+    "md5": "^2.3.0"
+  }
+}
