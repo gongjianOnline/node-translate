@@ -48,7 +48,14 @@ export const tarnslate = (word) => {
         }[]
       }
       const object: BaiduResult = JSON.parse(data);
-      console.log(object.trans_result[0].dst);
+      if(object.error_code){
+        console.log(object.error_msg);
+        process.exit(2) //关掉进程(参数随意)
+      }else{
+        console.log(object.trans_result[0].dst);
+        process.exit(0) //关掉进程(参数随意)
+      }
+
     });
   });
 
