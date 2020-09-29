@@ -3,6 +3,14 @@ import * as querystring from "querystring";
 import md5 = require("md5");
 import {appId, appSecret} from "./private";
 
+const errorMap = {
+  52003: '用户认证失败',
+  54001: '签名错误',
+  54004: '余额不足',
+  unknown: "服务器繁忙"
+};
+
+
 export const tarnslate = (word) => {
   const salt = Math.random();
   console.log(appId,
@@ -10,14 +18,22 @@ export const tarnslate = (word) => {
     salt,
     appSecret);
   const sign = md5(appId + word + salt + appSecret);
-  console.log("打印秘钥");
-  console.log(sign);
+  let from, to;
+  if (/[a-zA-Z]/.test(word[0])) {
+    // 英译汉
+    from = "en";
+    to = "zh";
+  } else {
+    //汉译英
+    from = "zh";
+    to = "en";
+  }
 
   //查询字符串模块
   const query: string = querystring.stringify({
     q: word,
-    from: 'en',
-    to: 'zh',
+    from: from,
+    to: to,
     appid: appId,
     salt: salt,
     sign: sign,
@@ -48,12 +64,12 @@ export const tarnslate = (word) => {
         }[]
       }
       const object: BaiduResult = JSON.parse(data);
-      if(object.error_code){
-        console.log(object.error_msg);
-        process.exit(2) //关掉进程(参数随意)
-      }else{
+      if (object.error_code in errorMap) {
+        console.log(errorMap[object.error_code] || object.error_msg);
+        process.exit(2); //关掉进程(参数随意)
+      } else {
         console.log(object.trans_result[0].dst);
-        process.exit(0) //关掉进程(参数随意)
+        process.exit(0); //关掉进程(参数随意)
       }
 
     });
