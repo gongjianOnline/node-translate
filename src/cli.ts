@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+// node shebang
+
 import * as commander from "commander";
 import {tarnslate} from "./main";
 
@@ -8,7 +11,6 @@ program.version('0.0.1')
   .usage('<English>')
   .arguments('<English>')
   .action(function(english){
-    console.log(english)
     tarnslate(english)
   })
 

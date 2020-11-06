@@ -1,11 +1,17 @@
 {
   "name": "fanyi",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "ts-node-dev src/main.ts"
   },
-  "author": "李承斌 <15031617367@163.com>",
+  "bin": {
+    "fy": "dist/cli.js"
+  },
+  "files": [
+    "dist/**/*.js"
+  ],
+  "author": "龚箭",
   "license": "MIT",
   "dependencies": {
     "@types/md5": "^2.2.0",
